@@ -1,5 +1,5 @@
 <launch>
-    <node pkg="osc2msg" type="osc2msg.py" name="osc2msg_andosc" output="screen">
+    <node pkg="andosc_teleop" type="andosc_teleop.py" name="andosc_teleop" output="screen">
         <param name="name" value="ROS andOSC teleop"/>
         <param name="port" value="9000"/>
         <param name="regtype" value="_osc._udp"/>
@@ -10,6 +10,7 @@
         <param name="max_turn_rate" value="0.5" />
         <param name="dead_band"     value="10" />
         <param name="max_angle"     value="30" />
-        
+
+        <remap from="/cmd_vel"   to="/cmd_vel"/>        
     </node>
 </launch>
