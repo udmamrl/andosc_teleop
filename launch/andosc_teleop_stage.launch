@@ -6,10 +6,10 @@
         <param name="print_fallback" value="True" type="bool"/>
 
         <param name="ori_msg_name" value="ori" />
-        <param name="max_speed"     value="0.5" />
+        <param name="max_speed"     value="1.0" />
         <param name="max_turn_rate" value="0.5" />
         <param name="dead_band"     value="10" />
-        <param name="max_angle"     value="30" />
+        <param name="max_angle"     value="40" />
 
         <remap from="/cmd_vel"   to="/cmd_vel"/>        
     </node>

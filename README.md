@@ -1,7 +1,7 @@
 andosc_teleop ( ros fuerte )
 =============
 
-Use Android andOSC to control robot.
+Use Android andOSC / iOS mrmr OSC controler to control robot.
 
 Cheng-Lung Lee, 
 University of Detroit Mercy, Advanced Mobile Robotics Lab.
@@ -27,8 +27,17 @@ rosws set andosc_teleop --version=master --git https://github.com/udmamrl/andosc
 
 rosmake andosc_teleop
 
-# To run ,In Android phone download andOSC from Google Play for free
-Set up andOSC , connect to ROS master IP , port 9000
+#In Android: To run ,In Android phone download andOSC from Google Play for free
+ Set up andOSC , connect to ROS master IP , port 9000
+#In iphne/ipad/ipod : download mrmr OSC control
+ Setup mrmr OSC
+   Server as ROS master IP
+   Namespace / 
+   port 9000 ,
+   Bundle Message Style :On
+   Use float Values: On
+   Smoothing		: 0.2
+   Frequency(ms): 100ms
 
 # run andosc_teleop
 roslaunch andosc_teleop andosc_teleop.launch 

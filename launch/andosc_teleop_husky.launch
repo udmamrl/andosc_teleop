@@ -11,6 +11,6 @@
         <param name="dead_band"     value="10" />
         <param name="max_angle"     value="30" />
 
-        <remap from="/cmd_vel"   to="/cmd_vel"/>        
+        <remap from="/cmd_vel"   to="/RCremote/plan_cmd_vel"/>        
     </node>
 </launch>

@@ -176,8 +176,9 @@ class OscInterface(object):
         self.print_fallback = rospy.get_param("~print_fallback", True)
 
         self.ori_msg_name = rospy.get_param("~ori_msg_name", "ori")
+        self.mrmr_msg_name = rospy.get_param("~mrmr_msg_name", "mrmr accelerometer")
         self.max_speed      = rospy.get_param("~max_speed", 0.2)
-        self.max_turn_rate  = rospy.get_param("~max_turn_rate ", 0.2)
+        self.max_turn_rate  = rospy.get_param("~max_turn_rate", 0.2)
         self.dead_band      = rospy.get_param("~dead_band", 10)
         self.max_angle      = rospy.get_param("~max_angle", 30)
 
@@ -277,20 +278,18 @@ class OscInterface(object):
             rospy.loginfo(client_address)
 
         a=address_list[0]
-        """
-        if a.find(self.acc_msg_name) >=0:
+        twist_data = Twist()
+        
+        if a.find(self.mrmr_msg_name) >=0:
             
-            imu_data = Imu(header=rospy.Header(frame_id="andosc_teleop accelerometer"))
-            imu_data.header.stamp = rospy.Time.now()
-            imu_data.linear_acceleration.x = value_list[0]*self.acc_value_scale
-            imu_data.linear_acceleration.y = value_list[1]*self.acc_value_scale
-            imu_data.linear_acceleration.z = value_list[2]*self.acc_value_scale
-            self.Imu_pub.publish(imu_data)
-        """
+            y = (value_list[0]-0.5)*(self.max_angle+self.dead_band)*4
+            x = (value_list[1]-0.5)*(self.max_angle+self.dead_band)*4
+            twist_data.linear.x  = (self.max_speed/self.max_angle)    *self.deadband_limits(self.max_angle ,-self.max_angle ,x,self.dead_band)
+            twist_data.angular.z = (self.max_turn_rate/self.max_angle)*self.deadband_limits(self.max_angle ,-self.max_angle ,y,self.dead_band)
+            self.Twist_pub.publish(twist_data)
         if a.find(self.ori_msg_name) >=0:
             
-            twist_data = Twist()
-            #twist_data.header.stamp = rospy.Time.now()
+             #twist_data.header.stamp = rospy.Time.now()
             twist_data.linear.x  = (self.max_speed/self.max_angle)    *self.deadband_limits(self.max_angle ,-self.max_angle ,value_list[1],self.dead_band)
             twist_data.angular.z = (self.max_turn_rate/self.max_angle)*self.deadband_limits(self.max_angle ,-self.max_angle ,value_list[2],self.dead_band)
             self.Twist_pub.publish(twist_data)
