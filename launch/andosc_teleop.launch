@@ -1,0 +1,15 @@
+<launch>
+    <node pkg="osc2msg" type="osc2msg.py" name="osc2msg_andosc" output="screen">
+        <param name="name" value="ROS andOSC teleop"/>
+        <param name="port" value="9000"/>
+        <param name="regtype" value="_osc._udp"/>
+        <param name="print_fallback" value="True" type="bool"/>
+
+        <param name="ori_msg_name" value="ori" />
+        <param name="max_speed"     value="1.0" />
+        <param name="max_turn_rate" value="0.5" />
+        <param name="dead_band"     value="10" />
+        <param name="max_angle"     value="30" />
+        
+    </node>
+</launch>
